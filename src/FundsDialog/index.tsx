@@ -21,7 +21,7 @@ export interface FundsModalProps {
 const FundsDialog: FC<FundsModalProps> = (props: FundsModalProps) => {
     const address = useAppSelector(getWalletAddress)
     const [open, setOpen] = React.useState(false);
-    const [funds, setFunds] = React.useState('');
+    const [balance, setBalance] = React.useState(props.balance ? String(props.balance) : '');
 
     React.useEffect(()=>{
         if(props.open !== open) {
@@ -33,12 +33,12 @@ const FundsDialog: FC<FundsModalProps> = (props: FundsModalProps) => {
         props.onClose && props.onClose()
     };
     const handleOK = () => {
-        if(!funds) return;
+        if(!balance) return;
         alert('transfor funds!')
         handleClose();
     }
     const onChangeFunds = (e: any) => {
-        setFunds(e.target.value)
+        setBalance(e.target.value)
     }
 
     return (
@@ -66,15 +66,15 @@ const FundsDialog: FC<FundsModalProps> = (props: FundsModalProps) => {
                         id="name"
                         label="Balance"
                         type="text"
-                        value={props.balance ? String(props.balance): ''}
+                        value={balance ? String(balance): ''}
                         onChange={onChangeFunds}
                         fullWidth
                         variant="standard"
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="warning">Cancel</Button>
-                    <Button onClick={handleOK} disabled={funds===''} color="info">{props.type}</Button>
+                    <Button onClick={handleClose} color="warning" variant="contained">Cancel</Button>
+                    <Button onClick={handleOK} disabled={balance===''} color="info" variant="contained">{props.type}</Button>
                 </DialogActions>
             </Dialog>
         </div>
