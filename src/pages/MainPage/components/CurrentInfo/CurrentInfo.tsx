@@ -107,16 +107,16 @@ export const CurrentInfo: React.FC<ICurrentInfo> = ({
               type="primary"
               onClick={() => dispatch(addSupportOpen(symbol, asset))}
             >
-              Add support to the current connection
+              Deposit funds
             </Button>
           )}
-          <Button
+          {/* <Button
             size="large"
             disabled={!!description || !!decimals || !isActive}
             onClick={() => dispatch(editInfoOpen(symbol))}
           >
             Add description and decimals
-          </Button>
+          </Button> */}
           {activeWallet && (
             <Button
               size="large"

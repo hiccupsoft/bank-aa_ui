@@ -41,8 +41,10 @@ export const MainPage: React.FC = () => {
   );
 
   useEffect(() => {
+    console.log("parmaId-----------------",params.symbol);
     if (params.symbol === undefined && active !== null) {
-      historyInstance.replace(`/${active}`);
+      historyInstance.replace("/");
+      dispatch(changeActiveSymbol(""));
     } else if (params.symbol !== undefined && active !== params.symbol) {
       dispatch(changeActiveSymbol(params.symbol));
     }
