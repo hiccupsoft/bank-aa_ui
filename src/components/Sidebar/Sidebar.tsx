@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useRef, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Layout } from "antd";
@@ -14,6 +15,8 @@ import { IStore } from "store/reducers/index.interface";
 import { getCurrentFavoriteSymbolList } from "store/selectors/getCurrentFavoriteSymbolList";
 import { ICurrentSymbol } from "store/selectors/interfaces/currentSymbol.interface";
 import { ISettingsStore } from "store/reducers/settings.interface";
+import { IDataStore } from "store/reducers/data.interface";
+import { useConvertNumberToString } from "hooks/useConvertNumberToString";
 
 const { Sider } = Layout;
 
@@ -37,6 +40,11 @@ export const Sidebar: React.FC<ISidebar> = () => {
   const settings = useSelector<IStore, ISettingsStore>(
     (state) => state.settings
   );
+  const storeData = useSelector<IStore, IDataStore>(
+    (state) => state.data
+  );
+
+  const convertStr = (n: number)=>(useConvertNumberToString(n));
   // const sortSymbols: any = (a: ICurrentSymbol, b: ICurrentSymbol) => {
   //   if (settings.sort.sidebar === "AZ") {
   //     if (a.symbol > b.symbol) {
@@ -137,7 +145,12 @@ export const Sidebar: React.FC<ISidebar> = () => {
           <HeaderSidebar />
           <Search value={search} onChange={setSearch} />
         </div>
+
         <div className={styles.selectorWrap}>
+          {console.log(storeData)}
+        <div>
+          {storeData.byteBalance?.total && <b>Your balance is {`${convertStr(storeData.byteBalance?.total)} bytes`}</b> }
+        </div>
           <SelectorTabs
             sidebarType={settings.sidebarType}
             currentList={currentSymbolList}

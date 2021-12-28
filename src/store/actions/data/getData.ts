@@ -60,22 +60,6 @@ export const getData: ThunkActionWithArguments = () => async (
     });
   }
 
-  // try {
-  //   await socket.api.getBalances([state.settings.activeWallet], async(err: any, res: any)=>{
-  //     console.log("11111err",err);
-  //     console.log("11111res", _.keys(_.get(res, state.settings.activeWallet)));
-  //     const keys = _.keys(_.get(res, state.settings.activeWallet));
-  //     _.map(keys, async(i)=>{
-  //       if(i === "base") return;
-  //       const symbol = await socket.api.getSymbolByAsset(config.ADDRESS, i);
-  //       console.log(symbol, _.get(res, [state.settings.activeWallet, i]));
-  //       _.set(symbolsA, symbol, _.get(res, [state.settings.activeWallet, i]));
-  //     });
-  //   });
-  // } catch (e) {
-
-  // }
-
   const assets: IAssets = {};
   const descriptions: IDescriptions = {};
   const symbols: ISymbols = {};

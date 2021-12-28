@@ -14,6 +14,7 @@ const initialState: IDataStore = {
   drawers: {},
   supportLinks: {},
   symbolsForAddress: {},
+  byteBalance: {},
   loaded: false,
   loading: false,
   error: false,
@@ -44,7 +45,8 @@ export const dataReducer = (
     case LOAD_TOKEN_BALANCE_SUCCESS: {
       return {
         ...state,
-        symbolsForAddress: action.payload.symbolsForAddress
+        symbolsForAddress: action.payload.symbolsForAddress,
+        byteBalance: action.payload.byteBalance
       };
     }
     case LOAD_DATA_FAILURE: {

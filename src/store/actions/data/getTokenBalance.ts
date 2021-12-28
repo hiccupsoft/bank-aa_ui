@@ -19,6 +19,7 @@ export const getTokenBalance: ThunkActionWithArguments = () =>async(
   });
   let state: any = getState();
   let symbolsForAddress: ISymbols = {};
+  let byteBalance = {};
   let symbols: any[];
 
   const getSymbolByAssets = async(walletInfo: any, index:number) => {
@@ -26,14 +27,16 @@ export const getTokenBalance: ThunkActionWithArguments = () =>async(
     if(symbols.length === index) {
         dispatch({
           type: LOAD_TOKEN_BALANCE_SUCCESS,
-          payload: { symbolsForAddress },
+          payload: { symbolsForAddress, byteBalance },
         });
       return;
     }
     socket.api.getSymbolByAsset(config.ADDRESS, symbols[index]).then(symbol=>{
-      console.log(symbol);
+      console.log("store",state.data);
       if(symbol !== "GBYTE") {
         _.set(symbolsForAddress, symbol, _.get(walletInfo, [state.settings.activeWallet, symbols[index]]));
+      } else {
+        byteBalance = _.get(walletInfo, [state.settings.activeWallet, symbols[index]]);
       }
       const i = index + 1;
       getSymbolByAssets(walletInfo, i);
@@ -42,8 +45,6 @@ export const getTokenBalance: ThunkActionWithArguments = () =>async(
 
   try {
     await socket.api.getBalances([state.settings.activeWallet], async(err: any, res: any)=>{
-      console.log("11111err",err);
-      console.log("11111res", _.keys(_.get(res, state.settings.activeWallet)));
       symbols = _.keys(_.get(res, state.settings.activeWallet));
       getSymbolByAssets(res, 0);      
     });

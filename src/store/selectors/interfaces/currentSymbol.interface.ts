@@ -8,5 +8,5 @@ export interface ICurrentSymbol {
   // largestSupport: number;
   // isFavorite: boolean;
   // rivalSupport?: number | null;
-  balance: number;
+  balance?: number;
 }

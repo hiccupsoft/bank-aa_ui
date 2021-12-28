@@ -83,17 +83,18 @@ export interface IDataStore {
   symbols: ISymbols;
   supportLinks: ISupportLinks;
   symbolsForAddress: ISymbolBalances;
+  byteBalance: ISymbolBalance;
   loaded: boolean;
   loading: boolean;
   error: boolean;
 }
 
 export interface ISymbolBalance {
-  pending: number;
-  pending_outputs_count: number;
-  stable: number;
-  stable_outputs_count: number;
-  total: number;
+  pending?: number;
+  pending_outputs_count?: number;
+  stable?: number;
+  stable_outputs_count?: number;
+  total?: number;
 }
 
 export interface ISymbolBalances {
