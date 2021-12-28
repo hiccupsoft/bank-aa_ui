@@ -1,21 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { store } from "./app/store";
+import React from "react";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import * as serviceWorker from "./serviceWorker";
+import { PersistGate } from "redux-persist/integration/react";
+
+import "antd/dist/antd.css";
+import "./index.css";
+
+import "./services/socket";
+
+import configureStore from "./store";
+
+import { AppRouter } from "./AppRouter";
+
+export const { persistor, store } = configureStore();
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <AppRouter />
+      </PersistGate>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-serviceWorker.unregister();
