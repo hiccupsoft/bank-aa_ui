@@ -33,6 +33,7 @@ export const dataReducer = (
     }
     case LOAD_DATA_SUCCESS: {
       return {
+        ...state,
         symbols: action.payload.symbols,
         assets: action.payload.assets,
         descriptions: action.payload.descriptions,
